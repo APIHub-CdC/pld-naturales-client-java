@@ -1,0 +1,29 @@
+*.class
+
+# Eclipse
+.classpath
+.project
+.settings/
+ 
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+# Mac
+.DS_Store
+ 
+# Maven
+log/
+target/
+bin/	
+.mvn/
+.springBeans
+\.factorypath
+
+# security
+*.jks
+
+# conf
+/src/main/resources/config2.properties
+/src/test/java/io/PLDNaturales/client/api/ApiTest.txt 
