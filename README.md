@@ -1,6 +1,6 @@
-# telcos-client-java
+# pld-naturales-client-java
 
-Presenta los creditos de la persona con servicios con domicilio asociado de: telefonía celular; televisión de paga; y, telefonía local y de larga distancia.
+Devuelve las coinicidencias de las personas que se encuentran en listas nacionales e internacionales de Prevención de Lavado de Dinero.
 
 ## Requisitos
 
@@ -144,12 +144,12 @@ key_password=your_super_secure_password
 
 ### Paso 5. Capturar los datos de la petición
 
-En el archivo **TelecosSimulacionApiTest**, que se encuentra en ***src/test/java/io/telcos/client/api/***. Se deberá modificar los datos de la petición y de la URL para el consumo de la API en ***setBasePath("the_url")***, como se muestra en el siguiente fragmento de código con los datos correspondientes:
+En el archivo **ApiTest**, que se encuentra en ***src/test/java/io/PLDNaturales/client/api/***. Se deberá modificar los datos de la petición y de la URL para el consumo de la API en ***setBasePath("the_url")***, como se muestra en el siguiente fragmento de código con los datos correspondientes:
 
 ```java
-private Logger logger = LoggerFactory.getLogger(TelecosSimulacionApiTest.class.getName());
+private Logger logger = LoggerFactory.getLogger(ApiTest.class.getName());
 
-private final TelecosSimulacionApi api = new TelecosSimulacionApi();
+private final PldNaturalesApi api = new PldNaturalesApi();
 private final SignerInterceptor interceptor = new SignerInterceptor();
 private ApiClient apiClient = null;
 
@@ -157,7 +157,7 @@ private ApiClient apiClient = null;
 public void setUp() {
 	
 	this.apiClient = api.getApiClient();
-    this.apiClient.setBasePath("the_url");
+	this.apiClient.setBasePath("the_url");
 	OkHttpClient insecureClient = ApiClient.getClientNoSSLVerification();
 	OkHttpClient okHttpClient = insecureClient.newBuilder()
 			.readTimeout(60, TimeUnit.SECONDS)
@@ -172,47 +172,26 @@ public void getReporteTest() throws ApiException {
 	String username = "your_username";
 	String password = "your_password";
 
-    DomicilioPeticion domicilio = new DomicilioPeticion();
-    domicilio.setDireccion(null);
-    domicilio.setColonia(null);
-    domicilio.setMunicipio(null);
-    domicilio.setCiudad(null);
-    domicilio.setEstado(CatalogoEstados.CDMX);
-    domicilio.setCodigoPostal(null);
-    domicilio.setFechaResidencia(null);
-    domicilio.setNumeroTelefono(null);
-    domicilio.setTipoDomicilio(CatalogoTipoDomicilio.C);
-    domicilio.setTipoAsentamiento(CatalogoTipoAsentamiento._1);
+    Peticion persona = new Peticion();
     
-    PersonaPeticion persona = new PersonaPeticion();
-    persona.setPrimerNombre("NOMBRE");
-    persona.setSegundoNombre(null);
-    persona.setApellidoPaterno("APELLIDO");
+    persona.setFolioOtorgante("123456789");
+    persona.setTipoDocumento("1");
+    persona.setNumeroDocumento("00000088");
+    persona.setNombre("NOMBRE");
+    persona.setSegundoNombre("SEGUNDONOMBRE");
+    persona.setApellidoPaterno("PATERNO");
     persona.setApellidoMaterno("MATERNO");
-    persona.setApellidoAdicional(null);
-    persona.setFechaNacimiento("31-12-1985");
-    persona.setRfc(null);
-    persona.setCurp(null);
-    persona.setNumeroSeguridadSocial(null);
-    persona.setNacionalidad("");
-    persona.setResidencia(CatalogoResidencia._1);
-    persona.setEstadoCivil(CatalogoEstadoCivil.D);
-    persona.setSexo(CatalogoSexo.M);
-    persona.setClaveElector("");
-    persona.setNumeroDependientes("");
-    persona.setFechaDefuncion("");
-    persona.setDomicilio(domicilio);
     
 	try {
-        Respuesta response = api.getReporte(xApiKey, username, password, persona);
-        logger.info(response.toString());
+        Respuesta response = api.pld(xApiKey, username, password, persona);
         Assert.assertTrue(response != null);
+        if(response != null) {
+        	logger.info(response.toString());
+        }
 	} catch (ApiException e) {
-		Errores errores = interceptor.getErrores();
-		logger.info(errores.getErrores().get(0).toString());
+		logger.info(e.getResponseBody());
 	}
 }
-
 ```
 
 ### Paso 7. Ejecutar la prueba unitaria
