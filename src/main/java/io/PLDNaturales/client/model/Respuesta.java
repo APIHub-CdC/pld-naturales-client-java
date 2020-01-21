@@ -3,30 +3,30 @@ package io.PLDNaturales.client.model;
 import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
-import io.PLDNaturales.client.model.Persona;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Respuesta {
-  @SerializedName("folioConsultaOtorgante")
-  private String folioConsultaOtorgante = null;
+  @SerializedName("folio")
+  private String folio = null;
   @SerializedName("numConsulta")
   private BigDecimal numConsulta = null;
   @SerializedName("personas")
   private List<Persona> personas = null;
-  public Respuesta folioConsultaOtorgante(String folioConsultaOtorgante) {
-    this.folioConsultaOtorgante = folioConsultaOtorgante;
+  public Respuesta folio(String folio) {
+    this.folio = folio;
     return this;
   }
    
-  @ApiModelProperty(example = "123456789", value = "Es el identificador de la consulta realizada por parte del otorgante. Este folio se regresa de manera integra en el elemento respuesta.")
-  public String getFolioConsultaOtorgante() {
-    return folioConsultaOtorgante;
+  @ApiModelProperty(example = "123456789", value = "Es el identificador de la consulta realizada por parte del cliente. Este folio se regresa de manera integra en el elemento respuesta.")
+  public String getFolio() {
+    return folio;
   }
-  public void setFolioConsultaOtorgante(String folioConsultaOtorgante) {
-    this.folioConsultaOtorgante = folioConsultaOtorgante;
+  public void setFolio(String folio) {
+    this.folio = folio;
   }
   public Respuesta numConsulta(BigDecimal numConsulta) {
     this.numConsulta = numConsulta;
@@ -68,20 +68,20 @@ public class Respuesta {
       return false;
     }
     Respuesta respuesta = (Respuesta) o;
-    return Objects.equals(this.folioConsultaOtorgante, respuesta.folioConsultaOtorgante) &&
+    return Objects.equals(this.folio, respuesta.folio) &&
         Objects.equals(this.numConsulta, respuesta.numConsulta) &&
         Objects.equals(this.personas, respuesta.personas);
   }
   @Override
   public int hashCode() {
-    return Objects.hash(folioConsultaOtorgante, numConsulta, personas);
+    return Objects.hash(folio, numConsulta, personas);
   }
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Respuesta {\n");
     
-    sb.append("    folioConsultaOtorgante: ").append(toIndentedString(folioConsultaOtorgante)).append("\n");
+    sb.append("    folio: ").append(toIndentedString(folio)).append("\n");
     sb.append("    numConsulta: ").append(toIndentedString(numConsulta)).append("\n");
     sb.append("    personas: ").append(toIndentedString(personas)).append("\n");
     sb.append("}");

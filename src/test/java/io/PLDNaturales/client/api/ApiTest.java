@@ -4,7 +4,6 @@ import io.PLDNaturales.client.ApiException;
 import io.PLDNaturales.client.model.Peticion;
 import io.PLDNaturales.client.model.Respuesta;
 import io.PLDNaturales.client.ApiClient;
-import io.PLDNaturales.client.api.PldNaturalesApi;
 import io.PLDNaturales.interceptor.SignerInterceptor;
 import okhttp3.OkHttpClient;
 
@@ -45,7 +44,7 @@ public class ApiTest {
 
         Peticion persona = new Peticion();
         
-        persona.setFolioOtorgante("123456789");
+        persona.setFolio("123456789");
         persona.setTipoDocumento("1");
         persona.setNumeroDocumento("00000088");
         persona.setNombre("NOMBRE");

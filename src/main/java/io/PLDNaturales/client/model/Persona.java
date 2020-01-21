@@ -11,30 +11,14 @@ import java.io.IOException;
 
 
 public class Persona {
-  @SerializedName("porcentaje")
-  private String porcentaje = null;
-  @SerializedName("idPersona")
-  private String idPersona = null;
   @SerializedName("nombreCompleto")
   private String nombreCompleto = null;
   @SerializedName("lista")
   private String lista = null;
-  @SerializedName("estatus")
-  private String estatus = null;
   @SerializedName("cargoPuesto")
   private String cargoPuesto = null;
   @SerializedName("entidad")
   private String entidad = null;
-  @SerializedName("dependencia")
-  private String dependencia = null;
-  @SerializedName("fecNacimiento")
-  private String fecNacimiento = null;
-  @SerializedName("rfc")
-  private String rfc = null;
-  @SerializedName("sexo")
-  private String sexo = null;
-  @SerializedName("curp")
-  private String curp = null;
   @SerializedName("tipoDocumento")
   private String tipoDocumento = null;
   @SerializedName("numeroDocumento")
@@ -45,73 +29,8 @@ public class Persona {
   private String fechaInicio = null;
   @SerializedName("fechaFin")
   private String fechaFin = null;
-  
-  @JsonAdapter(OrdenEnum.Adapter.class)
-  public enum OrdenEnum {
-    _0("0"),
-    
-    _1("1");
-    private String value;
-    OrdenEnum(String value) {
-      this.value = value;
-    }
-    public String getValue() {
-      return value;
-    }
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-    public static OrdenEnum fromValue(String text) {
-      for (OrdenEnum b : OrdenEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-    public static class Adapter extends TypeAdapter<OrdenEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final OrdenEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-      @Override
-      public OrdenEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return OrdenEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-  @SerializedName("orden")
-  private OrdenEnum orden = null;
-  public Persona porcentaje(String porcentaje) {
-    this.porcentaje = porcentaje;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "100", value = "Nivel de coincidencia entre los parámetros de entrada y los resultados obtenidos.")
-  public String getPorcentaje() {
-    return porcentaje;
-  }
-  public void setPorcentaje(String porcentaje) {
-    this.porcentaje = porcentaje;
-  }
-  public Persona idPersona(String idPersona) {
-    this.idPersona = idPersona;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "100000003945001", value = "Número asignado a la consulta para cada persona")
-  public String getIdPersona() {
-    return idPersona;
-  }
-  public void setIdPersona(String idPersona) {
-    this.idPersona = idPersona;
-  }
-  public Persona nombreCompleto(String nombreCompleto) {
-    this.nombreCompleto = nombreCompleto;
-    return this;
-  }
+
+
    
   @ApiModelProperty(example = "MARIA DE GUADALUPE SANCHEZ MATHEWS", value = "Nombre completo de la persona que se obtuvo de la consulta")
   public String getNombreCompleto() {
@@ -132,23 +51,8 @@ public class Persona {
   public void setLista(String lista) {
     this.lista = lista;
   }
-  public Persona estatus(String estatus) {
-    this.estatus = estatus;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "INDEFINIDO", value = "Estatús de la persona en la lista")
-  public String getEstatus() {
-    return estatus;
-  }
-  public void setEstatus(String estatus) {
-    this.estatus = estatus;
-  }
-  public Persona cargoPuesto(String cargoPuesto) {
-    this.cargoPuesto = cargoPuesto;
-    return this;
-  }
-   
+
+
   @ApiModelProperty(example = "CANDIDATO A REGIDOR DISTRITAL", value = "Cargo o puesto de acuerdo a la lista")
   public String getCargoPuesto() {
     return cargoPuesto;
@@ -168,66 +72,9 @@ public class Persona {
   public void setEntidad(String entidad) {
     this.entidad = entidad;
   }
-  public Persona dependencia(String dependencia) {
-    this.dependencia = dependencia;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "INDEFINIDO", value = "Dependencia de acuerdo al listado")
-  public String getDependencia() {
-    return dependencia;
-  }
-  public void setDependencia(String dependencia) {
-    this.dependencia = dependencia;
-  }
-  public Persona fecNacimiento(String fecNacimiento) {
-    this.fecNacimiento = fecNacimiento;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "19/06/2018", value = "Fecha de nacimiento de la persona")
-  public String getFecNacimiento() {
-    return fecNacimiento;
-  }
-  public void setFecNacimiento(String fecNacimiento) {
-    this.fecNacimiento = fecNacimiento;
-  }
-  public Persona rfc(String rfc) {
-    this.rfc = rfc;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "INDEFINIDO", value = "NA")
-  public String getRfc() {
-    return rfc;
-  }
-  public void setRfc(String rfc) {
-    this.rfc = rfc;
-  }
-  public Persona sexo(String sexo) {
-    this.sexo = sexo;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "INDEFINIDO", value = "sexo de la persona")
-  public String getSexo() {
-    return sexo;
-  }
-  public void setSexo(String sexo) {
-    this.sexo = sexo;
-  }
-  public Persona curp(String curp) {
-    this.curp = curp;
-    return this;
-  }
-   
-  @ApiModelProperty(example = "INDEFINIDO", value = "NA")
-  public String getCurp() {
-    return curp;
-  }
-  public void setCurp(String curp) {
-    this.curp = curp;
-  }
+
+
+
   public Persona tipoDocumento(String tipoDocumento) {
     this.tipoDocumento = tipoDocumento;
     return this;
@@ -288,18 +135,9 @@ public class Persona {
   public void setFechaFin(String fechaFin) {
     this.fechaFin = fechaFin;
   }
-  public Persona orden(OrdenEnum orden) {
-    this.orden = orden;
-    return this;
-  }
+
    
-  @ApiModelProperty(example = "1", value = "Estatus de la persona en la lista. <br> 1 - Activo <br> 0 - Inactivo ")
-  public OrdenEnum getOrden() {
-    return orden;
-  }
-  public void setOrden(OrdenEnum orden) {
-    this.orden = orden;
-  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -309,52 +147,35 @@ public class Persona {
       return false;
     }
     Persona persona = (Persona) o;
-    return Objects.equals(this.porcentaje, persona.porcentaje) &&
-        Objects.equals(this.idPersona, persona.idPersona) &&
+    return
         Objects.equals(this.nombreCompleto, persona.nombreCompleto) &&
         Objects.equals(this.lista, persona.lista) &&
-        Objects.equals(this.estatus, persona.estatus) &&
         Objects.equals(this.cargoPuesto, persona.cargoPuesto) &&
         Objects.equals(this.entidad, persona.entidad) &&
-        Objects.equals(this.dependencia, persona.dependencia) &&
-        Objects.equals(this.fecNacimiento, persona.fecNacimiento) &&
-        Objects.equals(this.rfc, persona.rfc) &&
-        Objects.equals(this.sexo, persona.sexo) &&
-        Objects.equals(this.curp, persona.curp) &&
         Objects.equals(this.tipoDocumento, persona.tipoDocumento) &&
         Objects.equals(this.numeroDocumento, persona.numeroDocumento) &&
         Objects.equals(this.ubicacion, persona.ubicacion) &&
         Objects.equals(this.fechaInicio, persona.fechaInicio) &&
-        Objects.equals(this.fechaFin, persona.fechaFin) &&
-        Objects.equals(this.orden, persona.orden);
+        Objects.equals(this.fechaFin, persona.fechaFin);
   }
   @Override
   public int hashCode() {
-    return Objects.hash(porcentaje, idPersona, nombreCompleto, lista, estatus, cargoPuesto, entidad, dependencia, fecNacimiento, rfc, sexo, curp, tipoDocumento, numeroDocumento, ubicacion, fechaInicio, fechaFin, orden);
+    return Objects.hash(nombreCompleto, lista,  cargoPuesto, entidad,  tipoDocumento, numeroDocumento, ubicacion, fechaInicio, fechaFin);
   }
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Persona {\n");
-    
-    sb.append("    porcentaje: ").append(toIndentedString(porcentaje)).append("\n");
-    sb.append("    idPersona: ").append(toIndentedString(idPersona)).append("\n");
+
     sb.append("    nombreCompleto: ").append(toIndentedString(nombreCompleto)).append("\n");
     sb.append("    lista: ").append(toIndentedString(lista)).append("\n");
-    sb.append("    estatus: ").append(toIndentedString(estatus)).append("\n");
     sb.append("    cargoPuesto: ").append(toIndentedString(cargoPuesto)).append("\n");
     sb.append("    entidad: ").append(toIndentedString(entidad)).append("\n");
-    sb.append("    dependencia: ").append(toIndentedString(dependencia)).append("\n");
-    sb.append("    fecNacimiento: ").append(toIndentedString(fecNacimiento)).append("\n");
-    sb.append("    rfc: ").append(toIndentedString(rfc)).append("\n");
-    sb.append("    sexo: ").append(toIndentedString(sexo)).append("\n");
-    sb.append("    curp: ").append(toIndentedString(curp)).append("\n");
     sb.append("    tipoDocumento: ").append(toIndentedString(tipoDocumento)).append("\n");
     sb.append("    numeroDocumento: ").append(toIndentedString(numeroDocumento)).append("\n");
     sb.append("    ubicacion: ").append(toIndentedString(ubicacion)).append("\n");
     sb.append("    fechaInicio: ").append(toIndentedString(fechaInicio)).append("\n");
     sb.append("    fechaFin: ").append(toIndentedString(fechaFin)).append("\n");
-    sb.append("    orden: ").append(toIndentedString(orden)).append("\n");
     sb.append("}");
     return sb.toString();
   }
