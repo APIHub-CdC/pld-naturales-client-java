@@ -174,7 +174,7 @@ public void getReporteTest() throws ApiException {
 
     Peticion persona = new Peticion();
     
-    persona.setFolioOtorgante("123456789");
+    persona.setFolio("123456789");
     persona.setTipoDocumento("1");
     persona.setNumeroDocumento("00000088");
     persona.setNombre("NOMBRE");

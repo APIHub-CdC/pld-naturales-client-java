@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
 public class Peticion {
-  @SerializedName("folioOtorgante")
-  private String folioOtorgante = null;
+  @SerializedName("folio")
+  private String folio = null;
   @SerializedName("tipoDocumento")
   private String tipoDocumento = null;
   @SerializedName("numeroDocumento")
@@ -19,17 +19,18 @@ public class Peticion {
   private String apellidoPaterno = null;
   @SerializedName("apellidoMaterno")
   private String apellidoMaterno = null;
-  public Peticion folioOtorgante(String folioOtorgante) {
-    this.folioOtorgante = folioOtorgante;
+
+  public Peticion folio(String folio) {
+    this.folio = folio;
     return this;
   }
    
-  @ApiModelProperty(example = "000012", value = "Folio otorgante.")
-  public String getFolioOtorgante() {
-    return folioOtorgante;
+  @ApiModelProperty(example = "000012", value = "Folio.")
+  public String getFolio() {
+    return folio;
   }
-  public void setFolioOtorgante(String folioOtorgante) {
-    this.folioOtorgante = folioOtorgante;
+  public void setFolio(String folio) {
+    this.folio = folio;
   }
   public Peticion tipoDocumento(String tipoDocumento) {
     this.tipoDocumento = tipoDocumento;
@@ -112,7 +113,7 @@ public class Peticion {
       return false;
     }
     Peticion peticion = (Peticion) o;
-    return Objects.equals(this.folioOtorgante, peticion.folioOtorgante) &&
+    return Objects.equals(this.folio, peticion.folio) &&
         Objects.equals(this.tipoDocumento, peticion.tipoDocumento) &&
         Objects.equals(this.numeroDocumento, peticion.numeroDocumento) &&
         Objects.equals(this.nombre, peticion.nombre) &&
@@ -122,14 +123,14 @@ public class Peticion {
   }
   @Override
   public int hashCode() {
-    return Objects.hash(folioOtorgante, tipoDocumento, numeroDocumento, nombre, segundoNombre, apellidoPaterno, apellidoMaterno);
+    return Objects.hash(folio, tipoDocumento, numeroDocumento, nombre, segundoNombre, apellidoPaterno, apellidoMaterno);
   }
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Peticion {\n");
     
-    sb.append("    folioOtorgante: ").append(toIndentedString(folioOtorgante)).append("\n");
+    sb.append("    folio: ").append(toIndentedString(folio)).append("\n");
     sb.append("    tipoDocumento: ").append(toIndentedString(tipoDocumento)).append("\n");
     sb.append("    numeroDocumento: ").append(toIndentedString(numeroDocumento)).append("\n");
     sb.append("    nombre: ").append(toIndentedString(nombre)).append("\n");
