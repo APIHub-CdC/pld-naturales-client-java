@@ -29,6 +29,8 @@ public class Persona {
   private String fechaInicio = null;
   @SerializedName("fechaFin")
   private String fechaFin = null;
+  @SerializedName("resolucionNombramiento")
+  private String resolucionNombramiento = null;
 
 
    
@@ -136,7 +138,25 @@ public class Persona {
     this.fechaFin = fechaFin;
   }
 
-   
+
+  public Persona resolucionNombramiento(String resolucionNombramiento) {
+    this.resolucionNombramiento = resolucionNombramiento;
+    return this;
+  }
+
+  /**
+   * Resolución de nombramiento
+   * @return resolucionNombramiento
+   **/
+  @ApiModelProperty(example = "RESOLUCIÓN SUPREMA N° 201-2019-DE", value = "Resolución de nombramiento")
+  public String getResolucionNombramiento() {
+    return resolucionNombramiento;
+  }
+
+  public void setResolucionNombramiento(String resolucionNombramiento) {
+    this.resolucionNombramiento = resolucionNombramiento;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -156,11 +176,12 @@ public class Persona {
         Objects.equals(this.numeroDocumento, persona.numeroDocumento) &&
         Objects.equals(this.ubicacion, persona.ubicacion) &&
         Objects.equals(this.fechaInicio, persona.fechaInicio) &&
-        Objects.equals(this.fechaFin, persona.fechaFin);
+        Objects.equals(this.fechaFin, persona.fechaFin)&&
+        Objects.equals(this.resolucionNombramiento, persona.resolucionNombramiento);
   }
   @Override
   public int hashCode() {
-    return Objects.hash(nombreCompleto, lista,  cargoPuesto, entidad,  tipoDocumento, numeroDocumento, ubicacion, fechaInicio, fechaFin);
+    return Objects.hash(nombreCompleto, lista,  cargoPuesto, entidad,  tipoDocumento, numeroDocumento, ubicacion, fechaInicio, fechaFin, resolucionNombramiento);
   }
   @Override
   public String toString() {
@@ -176,6 +197,7 @@ public class Persona {
     sb.append("    ubicacion: ").append(toIndentedString(ubicacion)).append("\n");
     sb.append("    fechaInicio: ").append(toIndentedString(fechaInicio)).append("\n");
     sb.append("    fechaFin: ").append(toIndentedString(fechaFin)).append("\n");
+    sb.append("    resolucionNombramiento: ").append(toIndentedString(resolucionNombramiento)).append("\n");
     sb.append("}");
     return sb.toString();
   }
