@@ -42,16 +42,14 @@ public class Signer {
 			prop.load(input);
 			privateKey = readPrivateKeyFromKeystore();
 			publicKey = readPublicCDC();
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+		} catch (Exception e) {
+			logger.error("Configuration file not found [config.properties].");
 		} finally {
 			if (input != null) {
 				try {
 					input.close();
 				} catch (IOException e) {
-					logger.error(e.getMessage());
-					System.exit(1);
+					logger.error("Error reading configuration file [config.properties].");
 				}
 			}
 		}
@@ -64,14 +62,11 @@ public class Signer {
 			signing.update(payload.getBytes());
 			signature = Hex.encodeHexString(signing.sign(), true);
 		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Signing algorithm invalid.");
 		} catch (InvalidKeyException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Invalid Private key.");
 		} catch (SignatureException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Error to signing payload.");
 		}
 		return signature;
 	}
@@ -89,17 +84,13 @@ public class Signer {
 				sign.update(payload.getBytes());
 				isVerify = sign.verify(signatureBytes);
 			} catch (NoSuchAlgorithmException e) {
-				logger.error(e.getMessage());
-				System.exit(1);
+				logger.error("Signature algorithm invalid.");
 			} catch (InvalidKeyException e) {
-				logger.error(e.getMessage());
-				System.exit(1);
+				logger.error("Invalid Public key.");
 			} catch (SignatureException e) {
-				logger.error(e.getMessage());
-				System.exit(1);
+				logger.error("Signature error to verifying the payload.");
 			} catch (DecoderException e) {
-				logger.error(e.getMessage());
-				System.exit(1);
+				logger.error("Failure during the decoding process to verify the payload.");
 			}
 		}
 		
@@ -115,27 +106,20 @@ public class Signer {
 			keystore.load(inputStream, prop.getProperty("keystore_password").toCharArray());
 			ecKey = (PrivateKey) keystore.getKey(prop.getProperty("key_alias"),prop.getProperty("key_password").toCharArray());
 		} catch (KeyStoreException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Invalid keystore.");
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Keystore file not found [keystore_file].");
 		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Keystore algorithm invalid.");
 		} catch (CertificateException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Private key invalid to process keystore.");
 		} catch (IOException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Error reading the keystore file [keystore_file].");
 		} catch (UnrecoverableKeyException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("The keystore cannot be recovered.");
 		} finally {
 			if(ecKey == null) {
-				logger.error("Could not read the private key, please review your configuration");
-				System.exit(1);
+				logger.error("Could not read the private key, please review your configuration.");
 			}
 		}
 		return ecKey;
@@ -151,15 +135,12 @@ public class Signer {
 			X509Certificate x509cert = (X509Certificate) fact.generateCertificate(certificate);
 			pubKey = x509cert.getPublicKey();
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("CDC Certificate file not found [cdc_cert_file].");
 		} catch (CertificateException e) {
-			logger.error(e.getMessage());
-			System.exit(1);
+			logger.error("Invalid CDC Certificate.");
 		} finally {
 			if(pubKey == null) {
-				logger.error("Could not read the private key, please review your configuration");
-				System.exit(1);
+				logger.error("Could not read the Public Key, please review your configuration");
 			}
 		}
 		
