@@ -28,8 +28,7 @@ public class ApiTest {
 		
 		this.apiClient = api.getApiClient();
 		this.apiClient.setBasePath("the_url");
-    	OkHttpClient insecureClient = ApiClient.getClientNoSSLVerification();
-    	OkHttpClient okHttpClient = insecureClient.newBuilder()
+    	OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
     			.readTimeout(60, TimeUnit.SECONDS)
     			.addInterceptor(interceptor)
     			.build();

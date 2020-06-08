@@ -43,19 +43,27 @@ public class SignerInterceptor implements Interceptor {
 		}
 	}
 	private Request procesarFirmado(Request originalRequest) {
-		logger.debug("Generando firmado...");
-		String payload = bodyToString(originalRequest);
+		logger.debug("Generating signed ...");
+		String payload = null;
+		List<String> pathSegments = originalRequest.url().encodedPathSegments();
+
+		if (originalRequest.method() == "GET") {
+			payload = pathSegments.get(2);
+		} else {
+			payload = bodyToString(originalRequest);
+		}
+
 		String signature = this.signer.signPayload(payload);
 		if (signature == null) {
 			logger.error("Could not sign the payload");
-			System.exit(1);
+		} else {
+			logger.debug("Signature: " + signature);
 		}
-		logger.debug("Firma: " + signature);
 		return originalRequest.newBuilder().header("x-signature", signature)
 				.method(originalRequest.method(), originalRequest.body()).build();
-	}
+	}	
 	private Response procesarVerificado(Response response) {
-		logger.debug("Verificando firmado...");
+		logger.debug("Verifying signed ...");
 		ResponseBody bodyAsStream = null;
 		Response outResponse = null;
 		MediaType contentType = null;
@@ -67,15 +75,14 @@ public class SignerInterceptor implements Interceptor {
 			content = response.body().bytes();
 			bodyAsStream = ResponseBody.create(contentType, content);
 			payload = bodyAsStream.string();
-			logger.debug("Payload recibido");
-			//logger.debug(payload);
+			logger.debug("Payload received.");
+			logger.debug(payload);
 			List<String> values = response.headers().values("x-signature");
 			signature = values.get(0);
 		} catch (IndexOutOfBoundsException e) {
-			logger.error("No se pudo recuperar la firma");
+			logger.error("The signature cannot be recovered.");
 		} catch (IOException e) {
-			logger.error("Error inesperado");
-			logger.error(e.getMessage());
+			logger.error("Unexpected error.");
 		} finally {
 			if (bodyAsStream != null) {
 				bodyAsStream.close();
@@ -83,21 +90,21 @@ public class SignerInterceptor implements Interceptor {
 		}
 		if (response.code() == 200) {
 			if (this.signer.verifyPayload(payload, signature)) {
-				logger.debug("Verificación satisfactoria");
+				logger.debug("Successful verification.");
 				outResponse = buildResponseBody(response.code(), null, response, contentType, content);
 			} else {
-				logger.error("No se pudo verificar la firma");
-				outResponse = buildResponseBody(403, "No se pudo verificar la firma", response, contentType, null);
+				logger.error("Signature cannot be verified.");
+				outResponse = buildResponseBody(403, "Signature cannot be verified.", response, contentType, null);
 			}
 		} else if (signature == null) {
-			outResponse = buildResponseBody(500, "No se recibió la firma", response, contentType, null);
+			outResponse = buildResponseBody(500, "Signature not received.", response, contentType, null);
 		} else {
 			outResponse = buildResponseBody(response.code(), null, response, contentType, content);
 		}
 		return outResponse;
 	}
 	private String generateError(String code, String message) {
-		logger.debug("Generando error");
+		logger.debug("Mapped response error.");
 		Errores errs = new Errores();
 		Error err = new Error();
 		err.setCodigo(code);
@@ -106,6 +113,7 @@ public class SignerInterceptor implements Interceptor {
 		Gson gson = new Gson();
 		return gson.toJson(errs);
 	}
+
 	private Response buildResponseBody(Integer statusCode, String message, Response response, MediaType contentType,
 			byte[] content) {
 		ResponseBody responseBody = null;
